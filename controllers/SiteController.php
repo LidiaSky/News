@@ -125,10 +125,10 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-   //my first action ...
-    public function actionSay($message='Hello')
+    //my first action ...
+    public function actionSay($message = 'Hello')
     {
-        return $this->render('say',['message'=>$message]);
+        return $this->render('say', ['message' => $message]);
     }
 
     public function actionNews($id = null)
@@ -163,37 +163,59 @@ class SiteController extends Controller
         }
         */
     }
-        public function actionEntry()
-        {
-           $model = new EntryForm();
 
-           if (!Yii::$app->request->isPost)
-               return $this->render('entry',['model'=>$model]);
+    public function actionEntry()
+    {
+        $model = new EntryForm();
 
-           $model->load(Yii::$app->request->post(),'EntryForm');
+        if (!Yii::$app->request->isPost)
+            return $this->render('entry', ['model' => $model]);
 
-           if ($model->validate()) {
-                $news = new News();
-                $news->load(Yii::$app->request->post(),'EntryForm');
-                //var_dump($news);
-                //exit();
+        $model->load(Yii::$app->request->post(), 'EntryForm');
 
-                if ( $news->save()) {
-                    // well done. redirect
-                    return $this->render('success',['news'=>$news]);
+        if ($model->validate()) {
+            $news = new News();
+            $news->load(Yii::$app->request->post(), 'EntryForm');
+            //var_dump($news);
+            //exit();
 
-                } else {
-                    // show save error
-                }
-               return $this->render('entry-confirm',['model'=>$model]);
-           } else {
-               // show form validation error
-               //either the page is initially displayed or there is some validation error
-               return $this->render('entry',['model'=>$model]);
-           }
+            if ($news->save()) {
+                // well done. redirect
+                return $this->render('success', ['news' => $news]);
+
+            } else {
+                // show save error
+            }
+            return $this->render('entry-confirm', ['model' => $model]);
+        } else {
+            // show form validation error
+            //either the page is initially displayed or there is some validation error
+            return $this->render('entry', ['model' => $model]);
+        }
+    }
+
+    public function actionSection()
+    {
+        $model = new Section();
+        if (!Yii::$app->request->isPost)
+            return $this->render('addsection', ['model' => $model]);
+
+        if ($model->validate()) {
+            $section = new Section();
+            $section->load(Yii::$app->request->post(), 'Section');
+            if ($section->save()) {
+                // well done. redirect
+                return $this->render('success', ['section' => $section]);
+
+            } else {
+                // show save error
+            }
+            return $this->render('entry-confirm', ['model' => $model]);
+
         }
 
     }
+}
     //
 
 
