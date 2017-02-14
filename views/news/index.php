@@ -32,5 +32,5 @@ foreach ($news as $newsitem): ?>
 </ul>
 
     <?= Html::a('Добавить новость', ['site/entry'], ['class'=>'btn btn-primary']) ?> <br/>
-    <?= Html::a('Добавить секцию', ['site/entry'], ['class'=>'btn btn-primary']) ?> <br/>
+    <?= Html::a('Добавить секцию', ['site/addsection'], ['class'=>'btn btn-primary']) ?> <br/>
 <?= LinkPager::widget(['pagination'=>$pagination]) ?>
