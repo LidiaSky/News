@@ -8,11 +8,14 @@ use yii\widgets\ActiveForm;
 <?php $form = ActiveForm::begin(); ?>
 
 
-    <?= $form->field($model,'sectionName')->label('Введите имя для новой секции:'); ?>
+    <?= $form->field($model,'path')->label('Введите имя для новой секции на русском:'); ?>
+    
+
+    <?= $form->field($model,'description')->label('Введите описание для новой секции:'); ?>
 
 
     <div class="form-group">
-        <?= Html::submitButton('Submit',['class'=>'btn bth-primary']) ?>
+        <?= Html::submitButton('Добавить',['class'=>'btn bth-primary']) ?>
 
     </div>
 <?php ActiveForm::end(); ?>
