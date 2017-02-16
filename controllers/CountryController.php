@@ -14,6 +14,7 @@ use app\models\Country;
 class CountryController extends Controller{
     public function actionIndex()
     {
+
         $query = Country::find();
         $pagination = new Pagination([
             'defaultPageSize'=>5,

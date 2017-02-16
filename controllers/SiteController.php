@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Section;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -205,7 +206,7 @@ class SiteController extends Controller
             $section->load(Yii::$app->request->post(), 'Section');
             if ($section->save()) {
                 // well done. redirect
-                return $this->render('success', ['section' => $section]);
+                return $this->render('sectaddsuccess', ['section' => $section]);
 
             } else {
                 // show save error

@@ -10,8 +10,7 @@ namespace app\models;
 
 use \yii\db\ActiveRecord;
 
-
-class News extends \yii\db\ActiveRecord
+class Section extends \yii\db\ActiveRecord
 {
     /*public $name;
     public $title;
@@ -19,7 +18,7 @@ class News extends \yii\db\ActiveRecord
     public $text;*/
     public static function tableName()
     {
-        return 'news';
+        return 'section';
     }
 
 
@@ -27,7 +26,7 @@ class News extends \yii\db\ActiveRecord
         return [
             //[['name','title','abstruct','text'],'required'],
             [
-                ['text', 'title', 'abstract'],
+                ['path','title','name','description'],
                 'trim'
             ]
 

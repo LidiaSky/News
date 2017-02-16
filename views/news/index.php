@@ -7,6 +7,7 @@
  */
 use yii\helpers\Html;
 use yii\widgets\LinkPager;
+use app\models\Section;
 
 $this->title = 'NEWS';
 ?>
@@ -32,5 +33,5 @@ foreach ($news as $newsitem): ?>
 </ul>
 
     <?= Html::a('Добавить новость', ['site/entry'], ['class'=>'btn btn-primary']) ?> <br/>
-    <?= Html::a('Добавить секцию', ['site/addsection'], ['class'=>'btn btn-primary']) ?> <br/>
+    <?= Html::a('Добавить секцию', ['site/section'], ['class'=>'btn btn-primary']) ?> <br/>
 <?= LinkPager::widget(['pagination'=>$pagination]) ?>
