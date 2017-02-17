@@ -25,8 +25,14 @@ class SectionController extends Controller
         $query =Section::find();
         $sections = $query->orderBy('name')
             ->all();
+        $query = Section::find();
+        $sectionview = $query->select(['title','id','nlevel(path) as level'])
+            ->orderby('path')
+            ->all();
+
+
         return $this->render('index',[
-            'sections'=> $sections,'model'=> $model
+            'sections'=> $sections,'model'=> $model,'sectionview'=>$sectionview
         ]);
     }
 }

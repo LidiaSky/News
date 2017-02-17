@@ -4,7 +4,10 @@ use yii\widgets\ActiveForm;
 ?>
     <h1>Добавление новой секции</h1>
     <h2>Существующие секции</h2>
-<select class="custom-select">
+<label>
+    Выберите в какой раздел вставить новую секцию
+</label>
+<select class="form-control">
 <?php foreach ($sections as $section): ?>
 
     <option ><?=Html::encode("{$section->path}")?></option>
@@ -23,7 +26,7 @@ use yii\widgets\ActiveForm;
 
 <?php $form = ActiveForm::begin(); ?>
 
-<?= $form->field($model,'path')->label('Выберите в какой раздел вставить новую секцию'); ?>
+<!--//$form->field($model,'path')->label('Выберите в какой раздел вставить новую секцию'); -->
 <?= $form->field($model,'title')->label('Введите имя для новой секции на русском:'); ?>
 <?= $form->field($model,'name')->label('Введите имя для новой секции на английском:'); ?>
 
@@ -34,3 +37,18 @@ use yii\widgets\ActiveForm;
 
     </div>
 <?php ActiveForm::end(); ?>
+
+<?php foreach ($sectionview as $view): ?>
+
+    <?php if ($view->level ==1):?>
+        <a href=""> <?=Html::encode("{$view->title}")?><br/></a>
+    <?php else : ?>
+        <?php if ($view->level ==2):?>
+    <a href=""> ---- <?=Html::encode("{$view->title}")?><br/> </a>
+            <?php else :?>
+                <a href=""> ---------- <?=Html::encode("{$view->title}")?><br/> </a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <?php endif; ?>
+    <?php endif; ?>
+
+
+<?php endforeach; ?>

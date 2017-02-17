@@ -16,6 +16,7 @@ class Section extends \yii\db\ActiveRecord
     public $title;
     public $abstract;
     public $text;*/
+    public $level;
     public static function tableName()
     {
         return 'section';
