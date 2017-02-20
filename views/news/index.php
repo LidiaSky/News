@@ -11,27 +11,88 @@ use app\models\Section;
 
 $this->title = 'NEWS';
 ?>
-<br class="jumbotron">
-    <h1>Новости</h1>
 
-    <p class="lead">Российские и мировые новости.</p>
+<div class="row">
+    <div class="col-xs-9"></div>
+    <div class="col-xs-4">
+        <?php foreach ($sectionview as $view): ?>
 
-<ul>
-<?php
+            <?php if ($view->level ==1):?>
+                <h3><a href=""> <?=Html::encode("{$view->title}")?><br/></a></h3>
+            <?php else : ?>
+                <?php if ($view->level ==2):?>
+                    <h4><a href=""> ---- <?=Html::encode("{$view->title}")?><br/> </a></h4>
+                <?php else :?>
+                    <a href=""> ---------- <?=Html::encode("{$view->title}")?><br/> </a>
+                <?php endif; ?>
+            <?php endif; ?>
+
+
+        <?php endforeach; ?>
 
 
 
-foreach ($news as $newsitem): ?>
-    <li>
-        <?=Html::encode("{$newsitem-> title}, {$newsitem->abstract}, 
+    </div>
+    <div class="col-xs-6">
+        <br class="jumbotron">
+        <h1>Новости</h1>
+
+        <p class="lead">Российские и мировые новости.</p>
+
+        <ul>
+            <?php
+
+
+
+            foreach ($news as $newsitem): ?>
+                <li>
+                    <?=Html::encode("{$newsitem-> title}, {$newsitem->abstract}, 
         {$newsitem-> text}") ?>:
 
-    </li>
+                </li>
 
-    <?php endforeach; ?>
+            <?php endforeach; ?>
 
-</ul>
+        </ul>
 
-    <?= Html::a('Добавить новость', ['site/entry'], ['class'=>'btn btn-primary']) ?> <br/>
-    <?= Html::a('Добавить секцию', ['site/section'], ['class'=>'btn btn-primary']) ?> <br/>
-<?= LinkPager::widget(['pagination'=>$pagination]) ?>
+        <?= Html::a('Добавить новость', ['site/entry'], ['class'=>'btn btn-primary']) ?> <br/>
+        <?= Html::a('Добавить секцию', ['section/index'], ['class'=>'btn btn-primary']) ?> <br/>
+        <?= LinkPager::widget(['pagination'=>$pagination]) ?>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

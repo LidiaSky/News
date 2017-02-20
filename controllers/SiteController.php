@@ -12,6 +12,7 @@ use app\models\ContactForm;
 use app\models\News;
 use app\models\EntryForm;
 
+
 class SiteController extends Controller
 {
     /**
@@ -165,16 +166,30 @@ class SiteController extends Controller
         */
     }
 
+    //здесь выводим дерево слева,
+    // выводим форму для добавления логики
+    // вся логика для одного view должна содержаться в одном методе контроллера
+    //так как каждый метод контроллера - это отдельная страница
     public function actionEntry()
     {
-        $model = new EntryForm();
+
+
+
+        $query =Section::find();
+        $sections = $query->orderBy('name')
+            ->all();
+        $query = Section::find();
+        $sectionview = $query->select(['title','id','nlevel(path) as level'])
+            ->orderby('path')
+            ->all();
+        $modelForm = new EntryForm();
 
         if (!Yii::$app->request->isPost)
-            return $this->render('entry', ['model' => $model]);
+            return $this->render('entry', ['model' => $modelForm,'sections' => $sections, 'sectionview' => $sectionview]);
 
-        $model->load(Yii::$app->request->post(), 'EntryForm');
+        $modelForm->load(Yii::$app->request->post(), 'EntryForm');
 
-        if ($model->validate()) {
+        if ($modelForm->validate()) {
             $news = new News();
             $news->load(Yii::$app->request->post(), 'EntryForm');
             //var_dump($news);
@@ -182,16 +197,16 @@ class SiteController extends Controller
 
             if ($news->save()) {
                 // well done. redirect
-                return $this->render('success', ['news' => $news]);
+                return $this->render('entry', ['news' => $news, 'sections' => $sections, 'sectionview' => $sectionview]);
 
             } else {
                 // show save error
             }
-            return $this->render('entry-confirm', ['model' => $model]);
+            return $this->render('entry', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview]);
         } else {
             // show form validation error
             //either the page is initially displayed or there is some validation error
-            return $this->render('entry', ['model' => $model]);
+            return $this->render('entry', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview]);
         }
     }
 
@@ -217,7 +232,7 @@ class SiteController extends Controller
 
     }
 }
-    //
+
 
 
 

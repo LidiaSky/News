@@ -8,6 +8,7 @@
 namespace app\controllers;
 
 use app\models\News;
+use app\models\Section;
 use yii\data\Pagination;
 use yii\web\Controller;
 
@@ -28,9 +29,42 @@ class NewsController extends Controller
             ->limit($pagination->limit)
             ->all();
         $newsId = $query->where(['id' => 9])->one();
+
+
+
+
+        $query =Section::find();
+        $sections = $query->orderBy('name')
+            ->all();
+        $query = Section::find();
+        $sectionview = $query->select(['title','id','nlevel(path) as level'])
+            ->orderby('path')
+            ->all();
+
+
         return $this->render('index',[
             'newsId' => $newsId,
             'news' => $news,
-            'pagination'=>$pagination]);
+            'pagination'=>$pagination,
+            'sections'=> $sections,
+            'sectionview'=>$sectionview
+        ]);
+    }
+
+    public function actionSections()
+    {
+        $model = new Section();
+        $query =Section::find();
+        $sections = $query->orderBy('name')
+            ->all();
+        $query = Section::find();
+        $sectionview = $query->select(['title','id','nlevel(path) as level'])
+            ->orderby('path')
+            ->all();
+
+
+        return $this->render('index',[
+            'sections'=> $sections,'model'=> $model,'sectionview'=>$sectionview
+        ]);
     }
 }
