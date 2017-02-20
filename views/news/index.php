@@ -15,7 +15,7 @@ $this->title = 'NEWS';
 <div class="row">
     <div class="col-xs-9"></div>
     <div class="col-xs-4">
-        <?php foreach ($sectionview as $view): ?>
+        <?php foreach ($sectionview as $view): ///news/index/15 ?>
 
             <?php if ($view->level ==1):?>
                 <h3><a href=""> <?=Html::encode("{$view->title}")?><br/></a></h3>
@@ -29,6 +29,9 @@ $this->title = 'NEWS';
 
 
         <?php endforeach; ?>
+    <br/><br/>
+        <?= Html::a('Добавить новость', ['site/entry'], ['class'=>'btn btn-primary']) ?> <br/>
+        <?= Html::a('Добавить секцию', ['section/index'], ['class'=>'btn btn-primary']) ?> <br/>
 
 
 
@@ -55,8 +58,7 @@ $this->title = 'NEWS';
 
         </ul>
 
-        <?= Html::a('Добавить новость', ['site/entry'], ['class'=>'btn btn-primary']) ?> <br/>
-        <?= Html::a('Добавить секцию', ['section/index'], ['class'=>'btn btn-primary']) ?> <br/>
+
         <?= LinkPager::widget(['pagination'=>$pagination]) ?>
 
 

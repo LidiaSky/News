@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\News_section;
 use app\models\Section;
 use Yii;
 use yii\filters\AccessControl;
@@ -195,9 +196,15 @@ class SiteController extends Controller
             //var_dump($news);
             //exit();
 
+
             if ($news->save()) {
+
+                $newssection = new News_section();
+                $newssection->news_id = $news->id;
+                $newssection->section_id = Yii::$app->getRequest()->getBodyParam('sectionid');
+                $newssection->save();
                 // well done. redirect
-                return $this->render('entry', ['news' => $news, 'sections' => $sections, 'sectionview' => $sectionview]);
+                return $this->render('entry', ['model' => $modelForm,'news' => $news, 'sections' => $sections, 'sectionview' => $sectionview]);
 
             } else {
                 // show save error

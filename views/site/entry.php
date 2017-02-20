@@ -24,14 +24,26 @@ use yii\widgets\ActiveForm;
     <div class="col-xs-6">
         <h1>Добавление новости </h1>
         <?php $form = ActiveForm::begin(); ?>
+        <label>
+            Выберите в какой раздел вставить новость
+        </label>
+
+        <select class="form-control" name="sectionid">
+
+            <?php foreach ($sections as $section): ?>
+
+                <option value = "<?=$section->id ?>"><?=Html::encode("{$section->path}")?></option>
 
 
+            <?php endforeach; ?>
+        </select>
         <?= $form->field($model,'title')->textInput()->label('Введите заголовок новости:'); ?>
         <?= $form->field($model,'abstract')->label('Введите кратокое содержание новости:'); ?>
-        <?= $form->field($model,'text')->label('Введите текст новости:'); ?>
+        <!-- text area --!><?= $form->field($model,'text')->label('Введите текст новости:'); ?>
 
         <div class="form-group">
             <?= Html::submitButton('Отправить',['class'=>'btn bth-primary']) ?>
+            <?= Html::a('На главную', ['news/index'], ['class'=>'btn btn-primary']) ?> <br/>
 
         </div>
 
