@@ -25,7 +25,8 @@ class NewsController extends Controller
             'totalCount' => $query->count(),
 
         ]);
-        $newsquery = $query->orderBy('name')
+        //Вывод по страницам с сортировкой LIFO
+        $newsquery = $query->orderBy(['(id)' => SORT_DESC])
             ->offset($pagination->offset)
             ->limit($pagination->limit);
         // если задана категория, то выполняем запрос с JOIN

@@ -27,7 +27,7 @@ class Section extends \yii\db\ActiveRecord
         return [
             //[['name','title','abstruct','text'],'required'],
             [
-                ['path','title','name','description'],
+                ['path','title','name','description','pid'],
                 'trim'
             ]
 

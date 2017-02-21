@@ -38,8 +38,8 @@ use yii\widgets\ActiveForm;
             <?php endforeach; ?>
         </select>
         <?= $form->field($model,'title')->textInput()->label('Введите заголовок новости:'); ?>
-        <?= $form->field($model,'abstract')->label('Введите кратокое содержание новости:'); ?>
-        <!-- text area --!><?= $form->field($model,'text')->label('Введите текст новости:'); ?>
+        <?= $form->field($model,'abstract')->label('Введите краткое содержание новости:'); ?>
+        <!-- text area --!><?= $form->field($model,'text')->textarea()->label('Введите текст новости:'); ?>
 
         <div class="form-group">
             <?= Html::submitButton('Отправить',['class'=>'btn bth-primary']) ?>

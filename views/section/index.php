@@ -35,25 +35,19 @@ use yii\widgets\ActiveForm;
         <label>
             Выберите в какой раздел вставить новую секцию
         </label>
-        <select class="form-control">
+
+        <?php $form = ActiveForm::begin(); ?>
+        <select class="form-control" name="parentsectionid">
             <?php foreach ($sections as $section): ?>
 
-                <option ><?=Html::encode("{$section->path}")?></option>
+                <option value="<?= $section->id ?>"><?=Html::encode("{$section->path}")?></option>
+
+
 
 
             <?php endforeach; ?>
+
         </select>
-
-
-
-
-
-
-
-
-
-        <?php $form = ActiveForm::begin(); ?>
-
         <!--//$form->field($model,'path')->label('Выберите в какой раздел вставить новую секцию'); -->
         <?= $form->field($model,'title')->label('Введите имя для новой секции на русском:'); ?>
         <?= $form->field($model,'name')->label('Введите имя для новой секции на английском:'); ?>

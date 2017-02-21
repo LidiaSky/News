@@ -21,14 +21,42 @@ class SectionController extends Controller
 {
     public function actionIndex()
     {
+
+
+
+        if (Yii::$app->request->isPost) {
+            //добавление новой секции в БД
+            $newsectioninput = new Section();
+            $newsectioninput->load(Yii::$app->request->post(), 'Section');
+            //var_dump($newsectioninput);
+            //exit();
+            /*$newsectionToInsert = new Section();
+            $newsectionToInsert->name = $newsectioninput->name;
+            $newsectionToInsert->title = $newsectioninput->title;
+            $newsectionToInsert->description = $newsectioninput->description;
+            //добавить добавление path*/
+            $pid = Yii::$app->getRequest()->getBodyParam('parentsectionid');
+            $parenElement = Section::findOne($pid);
+            $newsectioninput->path = $parenElement->path.'.'.$newsectioninput->name;
+            $newsectioninput->pid = $pid;
+            //var_dump($newsectioninput->getAttributes());
+            //exit();
+            $newsectioninput->save();
+        }
+
         $model = new Section();
         $query =Section::find();
         $sections = $query->orderBy('name')
             ->all();
         $query = Section::find();
-        $sectionview = $query->select(['title','id','nlevel(path) as level'])
+        $sectionview = $query->select(['title','id','nlevel(path) as level','pid'])
             ->orderby('path')
             ->all();
+
+
+
+
+
 
 
         return $this->render('index',[
