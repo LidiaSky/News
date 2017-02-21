@@ -12,6 +12,8 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\News;
 use app\models\EntryForm;
+use yii\web\UploadedFile;
+use app\models\UploadForm;
 
 
 class SiteController extends Controller
@@ -175,18 +177,17 @@ class SiteController extends Controller
     {
 
 
-
-        $query =Section::find();
+        $query = Section::find();
         $sections = $query->orderBy('name')
             ->all();
         $query = Section::find();
-        $sectionview = $query->select(['title','id','nlevel(path) as level'])
+        $sectionview = $query->select(['title', 'id', 'nlevel(path) as level'])
             ->orderby('path')
             ->all();
         $modelForm = new EntryForm();
 
         if (!Yii::$app->request->isPost)
-            return $this->render('entry', ['model' => $modelForm,'sections' => $sections, 'sectionview' => $sectionview]);
+            return $this->render('entry', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview]);
 
         $modelForm->load(Yii::$app->request->post(), 'EntryForm');
 
@@ -204,7 +205,7 @@ class SiteController extends Controller
                 $newssection->section_id = Yii::$app->getRequest()->getBodyParam('sectionid');
                 $newssection->save();
                 // well done. redirect
-                return $this->render('entry', ['model' => $modelForm,'news' => $news, 'sections' => $sections, 'sectionview' => $sectionview]);
+                return $this->render('entry', ['model' => $modelForm, 'news' => $news, 'sections' => $sections, 'sectionview' => $sectionview]);
 
             } else {
                 // show save error
@@ -238,9 +239,23 @@ class SiteController extends Controller
         }
 
     }
+
+    // сохранение картинки
+    public function actionUpload()
+    {
+        $model = new UploadForm();
+
+        if (Yii::$app->request->isPost) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if ($model->upload()) {
+                // file is uploaded successfully
+                return;
+            }
+        }
+
+        return $this->render('upload', ['model' => $model]);
+    }
 }
-
-
 
 
 
