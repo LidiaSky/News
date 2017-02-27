@@ -115,4 +115,23 @@ a.desc:after {
 }
 .news_item {
 
+    margin-top:5%;
+    margin-right:90%;
+    margin-left:0;
+
+
+
+
+}
+.story_content {
+    margin-left:20%;
+
+
+
+
+}
+
+.picturelink {
+    width:70px;
+    float:left;
 }

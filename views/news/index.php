@@ -9,7 +9,7 @@ use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use app\models\Section;
 
-$this->title = 'NEWS';
+$this->title = 'Новости';
 ?>
 
 <div class="row">
@@ -43,7 +43,7 @@ $this->title = 'NEWS';
         <h1>Новости</h1>
 
         <p class="lead">Российские и мировые новости.</p>
-        <?= Html::img('@web/images/image3.jpg', ['alt'=>'some', 'class'=>'thing']);?>
+
 
 
             <?php
@@ -51,12 +51,18 @@ $this->title = 'NEWS';
 
 
             foreach ($news as $newsitem): ?>
-                <div class = "news_item">
-                    <a class="picturelink"
-                       <img class="image" src = ""
-                    <h5><?=Html::encode("{$newsitem-> title}, {$newsitem->abstract}") ?></h5>
 
-                </div>
+                    <div class = "news_item">
+                        <a class="picturelink" href="http://basic.lydia.ns.local/news/index">
+                            <?= Html::img('@web/images/pic.jpg', ['alt'=>'some', 'class'=>'thing']);?>
+                         </a>
+
+
+                    </div>
+                    <div class = "story_content">
+                        <h4><a href=""><?=Html::encode("{$newsitem-> title}") ?></a></h4>
+                        <h5><?=Html::encode("{$newsitem->abstract}") ?></h5>
+                    </div>
 
             <?php endforeach; ?>
 
@@ -67,7 +73,9 @@ $this->title = 'NEWS';
 
 
     </div>
-</div>
+
+    </div>
+
 
 
 
