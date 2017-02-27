@@ -45,21 +45,22 @@ $this->title = 'NEWS';
         <p class="lead">Российские и мировые новости.</p>
         <?= Html::img('@web/images/image3.jpg', ['alt'=>'some', 'class'=>'thing']);?>
 
-        <ul>
+
             <?php
 
 
 
             foreach ($news as $newsitem): ?>
-                <li>
-                    <?=Html::encode("{$newsitem-> title}, {$newsitem->abstract}, 
-        {$newsitem-> text}") ?>:
+                <div class = "news_item">
+                    <a class="picturelink"
+                       <img class="image" src = ""
+                    <h5><?=Html::encode("{$newsitem-> title}, {$newsitem->abstract}") ?></h5>
 
-                </li>
+                </div>
 
             <?php endforeach; ?>
 
-        </ul>
+
 
 
         <?= LinkPager::widget(['pagination'=>$pagination]) ?>

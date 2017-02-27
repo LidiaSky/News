@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\News_image;
 use app\models\News_section;
 use app\models\Section;
 use Yii;
@@ -217,11 +218,19 @@ class SiteController extends Controller
                 $modelUpload->imageFile = UploadedFile::getInstance($modelUpload, 'imageFile');
                 if ($modelUpload->upload()) {
                     // file is uploaded successfully
-                   $images = new Images();
+                   //добавление в таблицу images
+                    $images = new Images();
                    $images->filename = $modelUpload->imageFile->name;
                    $images->mimetype = $modelUpload->imageFile->extension;
                    $images->filesize = $modelUpload->imageFile->size;
                    $images->save();
+
+                   //добавление связи в news_image
+
+                    $news_image = new News_image();
+                    $news_image->news_id = $news->id;
+                    $news_image->image_id = $images->id;
+                    $news_image->save();
 
 
 
