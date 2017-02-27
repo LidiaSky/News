@@ -15,6 +15,7 @@ $this->title = 'NEWS';
 <div class="row">
     <div class="col-xs-9"></div>
     <div class="col-xs-4">
+
         <?php foreach ($sectionview as $view): ///news/index/15 ?>
 
             <?php if ($view->level ==1):?>
@@ -37,10 +38,12 @@ $this->title = 'NEWS';
 
     </div>
     <div class="col-xs-6">
+
         <br class="jumbotron">
         <h1>Новости</h1>
 
         <p class="lead">Российские и мировые новости.</p>
+        <?= Html::img('@web/images/image3.jpg', ['alt'=>'some', 'class'=>'thing']);?>
 
         <ul>
             <?php

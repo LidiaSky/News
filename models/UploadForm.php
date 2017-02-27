@@ -13,7 +13,7 @@ use yii\base\Model;
 
 class UploadForm extends Model
 {
-    const PREFIX = '/tmp/';
+    const PREFIX = '/home/lidia/basic/web/images/';
     /**
      * @var UploadedFile
      */

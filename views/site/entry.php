@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="col-xs-6">
         <h1>Добавление новости </h1>
-        <?php $form = ActiveForm::begin(); ?>
+        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
         <label>
             Выберите в какой раздел вставить новость
         </label>
@@ -39,7 +39,13 @@ use yii\widgets\ActiveForm;
         </select>
         <?= $form->field($model,'title')->textInput()->label('Введите заголовок новости:'); ?>
         <?= $form->field($model,'abstract')->label('Введите краткое содержание новости:'); ?>
-        <!-- text area --!><?= $form->field($model,'text')->textarea()->label('Введите текст новости:'); ?>
+       <?= $form->field($model,'text')->textarea()->label('Введите текст новости:'); ?>
+        <?= $form->field($modelUpload, 'imageFile')->fileInput()->label("Прикрепить изображение"); ?>
+
+<!---->
+<!---->
+<!---->
+<?php //ActiveForm::end() ?>
 
         <div class="form-group">
             <?= Html::submitButton('Отправить',['class'=>'btn bth-primary']) ?>

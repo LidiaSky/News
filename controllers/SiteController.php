@@ -14,6 +14,7 @@ use app\models\News;
 use app\models\EntryForm;
 use yii\web\UploadedFile;
 use app\models\UploadForm;
+use app\models\Images;
 
 
 class SiteController extends Controller
@@ -185,9 +186,17 @@ class SiteController extends Controller
             ->orderby('path')
             ->all();
         $modelForm = new EntryForm();
+        // картинка
+
+        $modelUpload = new UploadForm();
+
+
+
+
+
 
         if (!Yii::$app->request->isPost)
-            return $this->render('entry', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview]);
+            return $this->render('entry', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview,'modelUpload' => $modelUpload ]);
 
         $modelForm->load(Yii::$app->request->post(), 'EntryForm');
 
@@ -204,17 +213,32 @@ class SiteController extends Controller
                 $newssection->news_id = $news->id;
                 $newssection->section_id = Yii::$app->getRequest()->getBodyParam('sectionid');
                 $newssection->save();
+                //загрузка файла
+                $modelUpload->imageFile = UploadedFile::getInstance($modelUpload, 'imageFile');
+                if ($modelUpload->upload()) {
+                    // file is uploaded successfully
+                   $images = new Images();
+                   $images->filename = $modelUpload->imageFile->name;
+                   $images->mimetype = $modelUpload->imageFile->extension;
+                   $images->filesize = $modelUpload->imageFile->size;
+                   $images->save();
+
+
+
+
+                }
+                //insert
                 // well done. redirect
-                return $this->render('entry', ['model' => $modelForm, 'news' => $news, 'sections' => $sections, 'sectionview' => $sectionview]);
+                return $this->render('entry', ['model' => $modelForm, 'news' => $news, 'sections' => $sections, 'sectionview' => $sectionview, 'modelUpload' => $modelUpload]);
 
             } else {
                 // show save error
             }
-            return $this->render('entry', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview]);
+            return $this->render('entry', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview,'modelUpload' => $modelUpload]);
         } else {
             // show form validation error
             //either the page is initially displayed or there is some validation error
-            return $this->render('entry', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview]);
+            return $this->render('entry', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview,'modelUpload' => $modelUpload]);
         }
     }
 
