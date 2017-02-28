@@ -52,7 +52,11 @@ $this->title = 'Новости';
 
             foreach ($news as $newsitem): ?>
 
+                
+                <h5><?=Html::encode("{$newsitem->images->filename}")?></h5>
+
                     <div class = "news_item">
+
                         <a class="picturelink" href="http://basic.lydia.ns.local/news/index">
                             <?= Html::img('@web/images/pic.jpg', ['alt'=>'some', 'class'=>'thing']);?>
                          </a>
@@ -74,7 +78,6 @@ $this->title = 'Новости';
 
 
     </div>
-
     </div>
 
 
