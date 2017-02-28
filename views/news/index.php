@@ -40,9 +40,9 @@ $this->title = 'Новости';
     <div class="col-xs-6">
 
         <br class="jumbotron">
-        <h1>Новости</h1>
+        <h1 class = "mainheader">Новости</h1>
 
-        <p class="lead">Российские и мировые новости.</p>
+
 
 
 
@@ -62,6 +62,7 @@ $this->title = 'Новости';
                     <div class = "story_content">
                         <h4><a href=""><?=Html::encode("{$newsitem-> title}") ?></a></h4>
                         <h5><?=Html::encode("{$newsitem->abstract}") ?></h5>
+                        <?= Html::a('Читать полностью', ['section/index'], ['class'=>'btn btn-primary']) ?> <br/>
                     </div>
 
             <?php endforeach; ?>
