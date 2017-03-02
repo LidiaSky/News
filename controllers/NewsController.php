@@ -47,7 +47,7 @@ class NewsController extends Controller
 
         }
         $pagination = new Pagination ([
-            'defaultPageSize' => 4,
+            'defaultPageSize' => 3,
             'totalCount' => $query->count(),
 
         ]);

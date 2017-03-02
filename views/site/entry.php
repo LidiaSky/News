@@ -39,7 +39,7 @@ use yii\widgets\ActiveForm;
         </select>
         <?= $form->field($model,'title')->textInput()->label('Введите заголовок новости:'); ?>
         <?= $form->field($model,'abstract')->label('Введите краткое содержание новости:'); ?>
-       <?= $form->field($model,'text')->textarea()->label('Введите текст новости:'); ?>
+        <?= $form->field($model,'text')->textarea()->label('Введите текст новости:'); ?>
         <?= $form->field($modelUpload, 'imageFile')->fileInput()->label("Прикрепить изображение"); ?>
 
 <!---->

@@ -207,7 +207,7 @@ class SiteController extends Controller
             //var_dump($news);
             //exit();
             $modelUpload->imageFile = UploadedFile::getInstance($modelUpload, 'imageFile');
-            if ($modelUpload->upload()) {
+
                 $trans = Yii::$app->db->beginTransaction();
                 try {
                     // file is uploaded successfully
@@ -227,6 +227,7 @@ class SiteController extends Controller
                     $newssection->news_id = $news->id;
                     $newssection->section_id = Yii::$app->getRequest()->getBodyParam('sectionid');
                     $newssection->save();
+                    $modelUpload->upload($images->id);
                 } catch (Exception $exception) {
                     $trans->rollBack();
                 }
@@ -234,7 +235,7 @@ class SiteController extends Controller
                 return $this->render('entry', ['model' => $modelForm, 'news' => $news, 'sections' => $sections, 'sectionview' => $sectionview, 'modelUpload' => $modelUpload]);
 
 
-            }
+
 
 
             return $this->render('entry', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview,'modelUpload' => $modelUpload]);

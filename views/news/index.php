@@ -54,7 +54,7 @@ $this->title = 'Новости';
 
 
 
-                <?php $imagePath = '/images/'.$newsitem->images->filename;
+                <?php $imagePath = '/images/thumb_'.$newsitem->images->id.".".$newsitem->images->mimetype;
                ?>
 
 
@@ -69,8 +69,14 @@ $this->title = 'Новости';
 
                     </div>
                     <div class = "story_content">
+                        <?php
+                        $date = substr($newsitem->created,0,16);
+                        ?>
+                        <h5><?=Html::encode("{$date}") ?></h5>
                         <h4><a href=""><?=Html::encode("{$newsitem-> title}") ?></a></h4>
                         <h5><?=Html::encode("{$newsitem->abstract}") ?></h5>
+
+
                         <?= Html::a('Читать полностью', ['section/index'], ['class'=>'btn btn-primary']) ?> <br/>
                     </div>
 
