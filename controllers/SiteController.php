@@ -283,6 +283,19 @@ class SiteController extends Controller
 
         return $this->render('upload', ['model' => $model]);
     }
+    public function actionFullarticle()
+    {
+
+        $query = Section::find();
+        $sections = $query->orderBy('name')
+            ->all();
+        $query = Section::find();
+        $sectionview = $query->select(['title', 'id', 'nlevel(path) as level'])
+            ->orderby('path')
+            ->all();
+    }
+
+
 }
 
 

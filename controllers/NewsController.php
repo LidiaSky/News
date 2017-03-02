@@ -86,6 +86,14 @@ class NewsController extends Controller
         ]);
     }
 
+    public function actionView($id)
+    {
+        $news = News::find()->where(["id" => $id])->one();
+
+        return $this->render('view',['news'=>$news]);
+
+    }
+
     public function actionSections()
     {
         $model = new Section();

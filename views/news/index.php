@@ -77,7 +77,7 @@ $this->title = 'Новости';
                         <h5><?=Html::encode("{$newsitem->abstract}") ?></h5>
 
 
-                        <?= Html::a('Читать полностью', ['section/index'], ['class'=>'btn btn-primary']) ?> <br/>
+                        <?= Html::a('Читать полностью', ['news/'.$newsitem->id], ['class'=>'btn btn-primary']) ?> <br/>
                     </div>
 
             <?php endforeach; ?>

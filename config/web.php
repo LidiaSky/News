@@ -43,6 +43,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'news/<id:\d+>' => 'news/view',
             ],
         ],
 
