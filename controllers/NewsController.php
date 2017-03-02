@@ -19,23 +19,51 @@ class NewsController extends Controller
 {
     public function actionIndex($categoryId = NULL)
     {
-        $query = News::find();
-        $pagination = new Pagination ([
-            'defaultPageSize' => 5,
-            'totalCount' => $query->count(),
 
-        ]);
+        $query = News::find();
+
+
+        ;
+
+
         //Вывод по страницам с сортировкой LIFO
-        $newsquery = $query->orderBy(['(id)' => SORT_DESC])
+        //изменить запрос на join
+       /* $newsquery = $query->orderBy(['(id)' => SORT_DESC])
             ->offset($pagination->offset)
-            ->limit($pagination->limit);
+            ->limit($pagination->limit); */
+       //запрос join
+        /*$newsquery = $query->select ('*')
+            ->from('news')
+            ->Join('LEFT OUTER JOIN','images','news.image_id=images.id')
+
+                //->leftJoin('images','news.image_id=images.id')
+            ->offset($pagination->offset)
+                ->limit($pagination->limit); */
+
+
         // если задана категория, то выполняем запрос с JOIN
         if ($categoryId !== NULL) {
            // $news->where
 
         }
-        $news = $newsquery->all();
-            $newsId = $query->where(['id' => 9])->one();
+        $pagination = new Pagination ([
+            'defaultPageSize' => 4,
+            'totalCount' => $query->count(),
+
+        ]);
+
+        //сортировка по id
+        $query->orderBy(['(id)' => SORT_DESC])
+        ->with('images')
+        ->offset($pagination->offset)
+        ->limit($pagination->limit);
+        $news = $query->all();
+       // var_dump($news[0]->images->filename);
+      // die();
+           // $newsId = $query->from('news')
+            //->where(['id' => 9])->one();
+
+
 
 
 
@@ -50,7 +78,7 @@ class NewsController extends Controller
 
 
         return $this->render('index',[
-            'newsId' => $newsId,
+            //'newsId' => $newsId,
             'news' => $news,
             'pagination'=>$pagination,
             'sections'=> $sections,

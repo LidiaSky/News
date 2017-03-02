@@ -135,3 +135,6 @@ a.desc:after {
     width:70px;
     float:left;
 }
+.mainheader {
+    text-align:center;
+}

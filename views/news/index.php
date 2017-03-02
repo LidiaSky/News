@@ -56,7 +56,7 @@ $this->title = 'Новости';
 
                 <?php $imagePath = '/images/'.$newsitem->images->filename;
                ?>
-               
+
 
 
 

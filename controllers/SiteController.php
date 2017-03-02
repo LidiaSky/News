@@ -6,6 +6,7 @@ use app\models\News_image;
 use app\models\News_section;
 use app\models\Section;
 use Yii;
+use yii\base\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -202,47 +203,40 @@ class SiteController extends Controller
         $modelForm->load(Yii::$app->request->post(), 'EntryForm');
 
         if ($modelForm->validate()) {
-            $news = new News();
-            $news->load(Yii::$app->request->post(), 'EntryForm');
+
             //var_dump($news);
             //exit();
-
-
-            if ($news->save()) {
-
-                $newssection = new News_section();
-                $newssection->news_id = $news->id;
-                $newssection->section_id = Yii::$app->getRequest()->getBodyParam('sectionid');
-                $newssection->save();
-                //загрузка файла
-                $modelUpload->imageFile = UploadedFile::getInstance($modelUpload, 'imageFile');
-                if ($modelUpload->upload()) {
+            $modelUpload->imageFile = UploadedFile::getInstance($modelUpload, 'imageFile');
+            if ($modelUpload->upload()) {
+                $trans = Yii::$app->db->beginTransaction();
+                try {
                     // file is uploaded successfully
-                   //добавление в таблицу images
+                    //добавление в таблицу images
                     $images = new Images();
-                   $images->filename = $modelUpload->imageFile->name;
-                   $images->mimetype = $modelUpload->imageFile->extension;
-                   $images->filesize = $modelUpload->imageFile->size;
-                   $images->save();
-
-                   //добавление связи в news_image
-
-                    $news_image = new News_image();
-                    $news_image->news_id = $news->id;
-                    $news_image->image_id = $images->id;
-                    $news_image->save();
+                    $images->filename = $modelUpload->imageFile->name;
+                    $images->mimetype = $modelUpload->imageFile->extension;
+                    $images->filesize = $modelUpload->imageFile->size;
+                    $images->save();
 
 
-
-
+                    $news = new News();
+                    $news->load(Yii::$app->request->post(), 'EntryForm');
+                    $news->image_id = $images->id;
+                    $news->save();
+                    $newssection = new News_section();
+                    $newssection->news_id = $news->id;
+                    $newssection->section_id = Yii::$app->getRequest()->getBodyParam('sectionid');
+                    $newssection->save();
+                } catch (Exception $exception) {
+                    $trans->rollBack();
                 }
-                //insert
-                // well done. redirect
+                $trans->commit();
                 return $this->render('entry', ['model' => $modelForm, 'news' => $news, 'sections' => $sections, 'sectionview' => $sectionview, 'modelUpload' => $modelUpload]);
 
-            } else {
-                // show save error
+
             }
+
+
             return $this->render('entry', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview,'modelUpload' => $modelUpload]);
         } else {
             // show form validation error
