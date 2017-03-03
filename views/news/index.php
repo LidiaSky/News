@@ -19,12 +19,13 @@ $this->title = 'Новости';
         <?php foreach ($sectionview as $view): ///news/index/15 ?>
 
             <?php if ($view->level ==1):?>
-                <h3><a href=""> <?=Html::encode("{$view->title}")?><br/></a></h3>
+                <?= Html::a(Html::encode("{$view->title}"), ['section/'.$view->id]) ?><br>
+
             <?php else : ?>
                 <?php if ($view->level ==2):?>
-                    <h4><a href=""> ---- <?=Html::encode("{$view->title}")?><br/> </a></h4>
+                    <?= Html::a("------".Html::encode("{$view->title}"), ['section/'.$view->id]) ?><br>
                 <?php else :?>
-                    <a href=""> ---------- <?=Html::encode("{$view->title}")?><br/> </a>
+                    <?= Html::a("----------".Html::encode("{$view->title}"), ['section/'.$view->id]) ?><br>
                 <?php endif; ?>
             <?php endif; ?>
 

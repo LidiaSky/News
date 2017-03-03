@@ -38,4 +38,9 @@ class News extends \yii\db\ActiveRecord
         return $this->hasOne(Images::className(), ['id' => 'image_id']);
     }
 
+    public function getSections()
+    {
+        return $this->hasOne(News_section::className(),['news_id'=>'id']);
+    }
+
 }

@@ -10,20 +10,44 @@ use yii\helpers\Html;
 use yii\widgets\LinkPager;
 use app\models\Section;
 
-$this->title = 'Читать полностью';
+$this->title = Html::encode("{$news-> title}");
 ?>
 
 <div class="row">
-    <div class="col-xs-9"></div>
-    <div class="col-xs-4">
+    <div class="col-md-12">
+    <div class="col-md-2">
+        <?php foreach ($sectionview as $view): ///news/index/15 ?>
+
+            <?php if ($view->level ==1):?>
+                <h3><a href=""> <?=Html::encode("{$view->title}")?><br/></a></h3>
+            <?php else : ?>
+                <?php if ($view->level ==2):?>
+                    <h4><a href=""> ---- <?=Html::encode("{$view->title}")?><br/> </a></h4>
+                <?php else :?>
+                    <a href=""> ---------- <?=Html::encode("{$view->title}")?><br/> </a>
+                <?php endif; ?>
+            <?php endif; ?>
+
+
+
+        <?php endforeach; ?>
     </div>
-    <div class="col-xs-6">
+    <div class="col-md-10">
 
         <br class="jumbotron">
-        <h1 class = "mainheader">Содержание новости</h1>
+
 
         <div class = "story_content">
-            <?php print_r($news) ?>
+            <h2><a href=""><?=Html::encode("{$news-> title}") ?></a></h2>
+            <?php $imagePath = '/images/'.$news->images->id.".".$news->images->mimetype;
+            ?>
+            <?= Html::img($imagePath, ['alt'=>'some', 'class'=>'thing']);?>
+
+            <h4><?=Html::encode("{$news->abstract}") ?></h4>
+            <h4> <?=Html::encode("{$news->text}") ?></h4>
+            <?= Html::a('На главную', ['news/index'], ['class'=>'btn btn-primary']) ?>
+            <?= Html::a('Редактировать статью', ['news/index'], ['class'=>'btn btn-primary']) ?> <br/>
         </div>
+    </div>
     </div>
 

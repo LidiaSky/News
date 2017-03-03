@@ -123,16 +123,27 @@ class NewsController extends Controller
         ]);
     }
     public function actionOnesection($id){
-
+        //вывод дерева слева
+        $model = new Section();
+        $query =Section::find();
+        $sections = $query->orderBy('name')
+            ->all();
         $query = Section::find();
-        $oneSectionNews = $query->select(['title','id','nlevel(path) as level'])
+        $sectionview = $query->select(['title','id','nlevel(path) as level'])
             ->orderby('path')
             ->all();
 
-        //Запрос в БД
-        //SELECT * FROM news ns INNER JOIN  (SELECT * FROM news_section WHERE section_id = 25) sec ON ns.id = sec.news_id;
-        SELECT * from news AS n JOIN news_section as ns ON (n.id = ns.news_id) where ns.section_id = 25 ;
-        return $this->render('onesection',['news'=>$oneSectionNews]);
+
+        $query = News::find();
+        //сортировка по id
+        $query->orderBy(['id' => SORT_DESC])
+            ->innerJoinWith('sections')
+            ->where(['news_section.section_id'=> $id  ]);
+
+        $newsOfTheSection = $query->all();
+
+
+        return $this->render('onesection',['newsOfTheSection'=>$newsOfTheSection,'sectionview'=>$sectionview,]);
 
     }
 }
