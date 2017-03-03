@@ -13,8 +13,8 @@ $this->title = 'Новости';
 ?>
 
 <div class="row">
-    <div class="col-xs-9"></div>
-    <div class="col-xs-4">
+    <div class="col-md-12"></div>
+    <div class="col-md-4">
 
         <?php foreach ($sectionview as $view): ///news/index/15 ?>
 
@@ -37,7 +37,7 @@ $this->title = 'Новости';
 
 
     </div>
-    <div class="col-xs-6">
+    <div class="col-md-8">
 
         <br class="jumbotron">
         <h1 class = "mainheader">Новости</h1>
