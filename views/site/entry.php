@@ -6,15 +6,16 @@ use yii\widgets\ActiveForm;
 <div class="row">
     <div class="col-xs-9"></div>
     <div class="col-xs-4">
-        <?php foreach ($sectionview as $view): ?>
+        <?php foreach ($sectionview as $view): ///news/index/15 ?>
 
             <?php if ($view->level ==1):?>
-                <h3><a href=""> <?=Html::encode("{$view->title}")?><br/></a></h3>
+                <?= Html::a(Html::encode("{$view->title}"), ['section/'.$view->id]) ?><br>
+
             <?php else : ?>
                 <?php if ($view->level ==2):?>
-                    <h4><a href=""> ---- <?=Html::encode("{$view->title}")?><br/> </a></h4>
+                    <?= Html::a("------".Html::encode("{$view->title}"), ['section/'.$view->id]) ?><br>
                 <?php else :?>
-                    <a href=""> ---------- <?=Html::encode("{$view->title}")?><br/> </a>
+                    <?= Html::a("----------".Html::encode("{$view->title}"), ['section/'.$view->id]) ?><br>
                 <?php endif; ?>
             <?php endif; ?>
 
