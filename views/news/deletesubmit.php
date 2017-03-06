@@ -35,9 +35,8 @@ $this->title = Html::encode("{$news-> title}");
         <div class="col-md-10">
             <h1>Вы действительно хотите удалить данную статью: </h1>
             <h2><?=Html::encode("{$news->title}") ?></h2>
-            <h3><?=Html::encode("{$news->abstract}") ?></h3>
-            <h4> <?=Html::encode("{$news->text}") ?></h4>
-            <?= Html::a('Удалить статью', ['delete/'.$news->id], ['class'=>'btn btn-primary']) ?> <br/>
+
+            <?= Html::a('Удалить статью', ['deletenews/'.$news->id], ['class'=>'btn btn-primary']) ?> <br/>
             <?= Html::a('На главную', ['news/index'], ['class'=>'btn btn-primary']) ?>
 
 

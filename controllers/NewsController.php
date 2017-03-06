@@ -143,14 +143,7 @@ class NewsController extends Controller
         //imput form with filled fields
         $modelForm = new EntryForm();
         // картинка
-
         $modelUpload = new UploadForm();
-
-
-
-
-
-
         if (!Yii::$app->request->isPost)
             return $this->render('edit', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview,'modelUpload' => $modelUpload,'news'=>$news ]);
 
@@ -191,6 +184,57 @@ class NewsController extends Controller
 
         return $this->render('edit',['news'=>$news,'sections'=> $sections,'model'=> $model,'sectionview'=>$sectionview]);
 
+
+    }
+
+    public function actionDeletesubmit($id)
+    {
+
+        $model = new Section();
+        $query =Section::find();
+        $sections = $query->orderBy('name')
+            ->all();
+        $query = Section::find();
+        $sectionview = $query->select(['title','id','nlevel(path) as level'])
+            ->orderby('path')
+            ->all();
+        $query = Section::find();
+        $sections = $query->orderBy('name')
+            ->all();
+        $query = Section::find();
+        $sectionview = $query->select(['title', 'id', 'nlevel(path) as level'])
+            ->orderby('path')
+            ->all();
+        //to output previous news data
+        $news = News::find()->where(["id" => $id])->one();
+
+        return $this->render('deletesubmit',['news'=>$news,'sections'=> $sections,'model'=> $model,'sectionview'=>$sectionview]);
+    }
+
+    public function actionDelete($id)
+    {
+        $news = News::find()->where(["id" => $id])->one();
+        $model = new Section();
+        $query =Section::find();
+        $sections = $query->orderBy('name')
+            ->all();
+        $query = Section::find();
+        $sectionview = $query->select(['title','id','nlevel(path) as level'])
+            ->orderby('path')
+            ->all();
+        $query = Section::find();
+        $sections = $query->orderBy('name')
+            ->all();
+        $query = Section::find();
+        $sectionview = $query->select(['title', 'id', 'nlevel(path) as level'])
+            ->orderby('path')
+            ->all();
+        $newstodelete = News::findOne($id);
+        if ($newstodelete->delete()) {
+        return $this->render('delete',['news'=>$news,'sections'=> $sections,'model'=> $model,'sectionview'=>$sectionview]);}
+        else {
+            return $this->render('deletefail',['news'=>$news,'sections'=> $sections,'model'=> $model,'sectionview'=>$sectionview]);
+        }
 
     }
 

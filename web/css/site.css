@@ -138,3 +138,6 @@ a.desc:after {
 .mainheader {
     text-align:center;
 }
+.aqua {
+    color: aqua !important;
+}

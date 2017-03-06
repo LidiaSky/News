@@ -33,8 +33,7 @@ $this->title = Html::encode("{$news-> title}");
             <?php endforeach; ?>
         </div>
         <div class="col-md-10">
-            <h1>Статья успешно удалена! </h1>
-            <?= Html::a('На главную', ['news/index'], ['class'=>'aqua']) ?>
+            <h1>Что-то пошло не так! </h1>
             <br class="jumbotron">
 
 

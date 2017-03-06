@@ -45,7 +45,9 @@ $config = [
             'rules' => [
                 'news/<id:\d+>' => 'news/view',
                 'section/<id:\d+>'=>'news/onesection',
-                'edit/<id:\d+>'=>'news/edit'
+                'edit/<id:\d+>'=>'news/edit',
+                'delete/<id:\d+>'=>'news/deletesubmit',
+                'deletenews/<id:\d+>'=>'news/delete'
 
             ],
         ],
