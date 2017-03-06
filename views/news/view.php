@@ -46,7 +46,8 @@ $this->title = Html::encode("{$news-> title}");
             <h4><?=Html::encode("{$news->abstract}") ?></h4>
             <h4> <?=Html::encode("{$news->text}") ?></h4>
             <?= Html::a('На главную', ['news/index'], ['class'=>'btn btn-primary']) ?>
-            <?= Html::a('Редактировать статью', ['news/index'], ['class'=>'btn btn-primary']) ?> <br/>
+            <?= Html::a('Редактировать статью', ['edit/'.$news->id], ['class'=>'btn btn-primary']) ?>
+            <?= Html::a('Удалить статью', ['delete/'.$news->id], ['class'=>'btn btn-primary']) ?> <br/>
         </div>
     </div>
     </div>

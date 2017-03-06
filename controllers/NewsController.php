@@ -12,6 +12,21 @@ use app\models\Section;
 
 use yii\data\Pagination;
 use yii\web\Controller;
+use app\models\EntryForm;
+use app\models\UploadForm;
+use app\models\News_image;
+use app\models\News_section;
+
+use Yii;
+use yii\base\Exception;
+use yii\filters\AccessControl;
+
+use yii\filters\VerbFilter;
+use app\models\LoginForm;
+use app\models\ContactForm;
+use yii\web\UploadedFile;
+
+use app\models\Images;
 
 
 
@@ -102,6 +117,79 @@ class NewsController extends Controller
 
 
         return $this->render('view',['news'=>$news,'sections'=> $sections,'model'=> $model,'sectionview'=>$sectionview]);
+
+
+    }
+
+    public function actionEdit($id)
+    {
+        //to output previous news data
+        $news = News::find()->where(["id" => $id])->one();
+        $model = new Section();
+        $query =Section::find();
+        $sections = $query->orderBy('name')
+            ->all();
+        $query = Section::find();
+        $sectionview = $query->select(['title','id','nlevel(path) as level'])
+            ->orderby('path')
+            ->all();
+        $query = Section::find();
+        $sections = $query->orderBy('name')
+            ->all();
+        $query = Section::find();
+        $sectionview = $query->select(['title', 'id', 'nlevel(path) as level'])
+            ->orderby('path')
+            ->all();
+        //imput form with filled fields
+        $modelForm = new EntryForm();
+        // картинка
+
+        $modelUpload = new UploadForm();
+
+
+
+
+
+
+        if (!Yii::$app->request->isPost)
+            return $this->render('edit', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview,'modelUpload' => $modelUpload,'news'=>$news ]);
+
+        $modelForm->load(Yii::$app->request->post(), 'EntryForm');
+
+        if ($modelForm->validate()) {
+
+            //var_dump($news);
+            //exit();
+
+                // file is uploaded successfully
+                //добавление в таблицу images
+                //if ($modelUpload != NULL) {
+                $news = new News();
+                $news->load(Yii::$app->request->post(), 'EntryForm');
+                //$news->save();
+                $newsupdate = News::findOne($id);
+                $newsupdate->title = $news->title;
+                $newsupdate->abstract = $news->abstract;
+                $newsupdate->text = $news->text;
+                $newsupdate->update();
+                return $this->render('edit', ['model' => $modelForm, 'news' => $news, 'sections' => $sections, 'sectionview' => $sectionview, 'modelUpload' => $modelUpload]);
+
+
+
+
+
+            return $this->render('edit', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview,'modelUpload' => $modelUpload]);
+        } else {
+            // show form validation error
+            //either the page is initially displayed or there is some validation error
+            return $this->render('edit', ['model' => $modelForm, 'sections' => $sections, 'sectionview' => $sectionview,'modelUpload' => $modelUpload]);
+        }
+
+
+
+
+
+        return $this->render('edit',['news'=>$news,'sections'=> $sections,'model'=> $model,'sectionview'=>$sectionview]);
 
 
     }

@@ -44,7 +44,8 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 'news/<id:\d+>' => 'news/view',
-                'section/<id:\d+>'=>'news/onesection'
+                'section/<id:\d+>'=>'news/onesection',
+                'edit/<id:\d+>'=>'news/edit'
 
             ],
         ],
